@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { data } from 'jquery';
 import { NgToastService } from 'ng-angular-popup';
 import { AdminsideServiceService } from 'src/app/service/adminside-service.service';
 declare var window:any;
+
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -15,6 +15,7 @@ export class UserComponent implements OnInit {
   userList:any[]=[];
   deleteModal:any;
   userId:any;
+
   constructor(private service:AdminsideServiceService,private toast:NgToastService) { }
 
   ngOnInit(): void {
@@ -23,37 +24,37 @@ export class UserComponent implements OnInit {
       document.getElementById('removeMissionModal')
     );
   }
+
   FetchUserList(){
     this.service.UserList().subscribe((data:any)=>{
-      if(data.result == 1)
-      {
+      if(data.result == 1) {
         this.userList = data.data;
-      }
-      else
-      {
+      } else {
         this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
       }
     },err=>this.toast.error({detail:"ERROR",summary:err.error.message,duration:3000}));
   }
 
-  
+  openDeleteModal(userId: any) {
+    this.userId = userId;
+    this.deleteModal.show();
+  }
+
   CloseRemoveMissionModal(){
     this.deleteModal.hide();
   }
+
   DeleteUser(){
     this.service.DeleteUser(this.userId).subscribe((data:any)=>{
-      if(data.result == 1)
-      {
+      if(data.result == 1) {
           this.toast.success({detail:"SUCCESS",summary:data.data,duration:3000});
           setTimeout(() => {
             this.deleteModal.hide();
-          window.location.reload();
+            this.FetchUserList();
           }, 1000);
-      }
-      else{
+      } else {
           this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
       }
     },err=>this.toast.error({detail:"ERROR",summary:err.error.message,duration:3000}))
   }
-
 }
