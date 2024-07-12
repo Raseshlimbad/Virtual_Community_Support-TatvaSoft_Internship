@@ -13,16 +13,19 @@
               <div class="row">
                 <div class="col-sm-6">
                   <label class="col-form-label">Country</label>
-                  <select class="form-select" (change)="CityList($event)" formControlName="countryId">
+                  <select class="form-select" formControlName="countryId">
+                    <option value="">Select Country</option>
                     <option *ngFor="let item of countryList" value="{{item.value}}"> {{item.text}}</option>
                   </select>
                   <span class="text-danger" *ngIf="countryId.invalid && (countryId.touched || formValid)">
                     Please Select Country
                   </span>
                 </div>
+
+                
                 <div class="col-sm-6">
                   <label class="col-form-label">City</label>
-                  <select class="form-select" formControlName="cityId">
+                  <select class="form-select" (change)="CityList($event)" formControlName="cityId">
                     <option value="">Select City</option>
                     <option *ngFor="let item of cityList" value="{{item.value}}">{{item.text}}</option>
                   </select>

@@ -14,28 +14,42 @@ import { AdminsideServiceService } from 'src/app/service/adminside-service.servi
 })
 export class AddUserComponent implements OnInit {
 
+
   constructor(public fb:FormBuilder,private service:AdminloginService,private toastr:ToastrService,private router:Router,public toast:NgToastService) { }
   registerForm:FormGroup;
   formValid:boolean;
   ngOnInit(): void {
     this.createRegisterForm();
   }
+  // createRegisterForm(){
+  //   this.registerForm = this.fb.group(  {
+  //     firstName:[null,Validators.compose([Validators.required])],
+  //     lastName:[null,Validators.compose([Validators.required])],
+  //     phoneNumber:[null,Validators.compose([Validators.required,Validators.minLength(10),Validators.maxLength(10)])],
+  //     emailAddress:[null,Validators.compose([Validators.required,Validators.email])],
+  //     password:[null,Validators.compose([Validators.required,Validators.minLength(5),Validators.maxLength(10)])],
+  //     confirmPassword:[null,Validators.compose([Validators.required])]
+  //   },{validator : [this.passwordCompareValidator]});
+  // }
+
   createRegisterForm(){
-    this.registerForm = this.fb.group({
-      firstName:[null,Validators.compose([Validators.required])],
-      lastName:[null,Validators.compose([Validators.required])],
-      phoneNumber:[null,Validators.compose([Validators.required,Validators.minLength(10),Validators.maxLength(10)])],
-      emailAddress:[null,Validators.compose([Validators.required,Validators.email])],
-      password:[null,Validators.compose([Validators.required,Validators.minLength(5),Validators.maxLength(10)])],
-      confirmPassword:[null,Validators.compose([Validators.required])]
-    },{validator : [this.passwordCompareValidator],});
-  }
+    this.registerForm = this.fb.nonNullable.group({
+      firstName: ['', Validators.compose([Validators.required])],
+      lastName: ['', Validators.compose([Validators.required])],
+      phoneNumber: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10)])],
+      emailAddress: ['', Validators.compose([Validators.required, Validators.email])],
+      password: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(10)])],
+      confirmPassword: ['', Validators.compose([Validators.required])]
+    }, { validators: [this.passwordCompareValidator] });
+}
+
   passwordCompareValidator(fc:AbstractControl):ValidationErrors | null{
-      return fc.get('password')?.value === fc.get('confirmPassword')?.value ? null : {notmatched : true}
+    return fc.get('password')?.value === fc.get('confirmPassword')?.value ? null : {notmatched : true}
   }
   get firstName()
   {
     return this.registerForm.get('firstName') as FormControl;
+    console.log(this.registerForm.get('firstName'))
   }
   get lastName()
   {
@@ -58,9 +72,9 @@ export class AddUserComponent implements OnInit {
     return this.registerForm.get('confirmPassword') as FormControl;
   }
   OnSubmit(){
-
-      this.formValid = true;
-      if(this.registerForm.valid)
+    
+    this.formValid = true;
+    if(this.registerForm.valid)
       {
         let register = this.registerForm.value;
         register.userType = 'user';

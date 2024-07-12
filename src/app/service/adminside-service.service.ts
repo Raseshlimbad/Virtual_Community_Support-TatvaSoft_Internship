@@ -17,8 +17,10 @@ export class AdminsideServiceService {
     public router: Router
   ) {}
   // apiUrl:string='http://localhost:63943/api';
-  apiUrl: string = 'http://localhost:56577/api';
-  imageUrl: string = 'http://localhost:56577';
+  // apiUrl: string = 'http://localhost:56577/api';
+  // imageUrl: string = 'http://localhost:56577';
+  apiUrl:string='https://localhost:7181/api';
+  imageUrl:string='https://localhost:7181';
 
   //User
   UserList(): Observable<any[]> {
@@ -26,7 +28,7 @@ export class AdminsideServiceService {
   }
   DeleteUser(userId: any) {
     return this.http.delete(
-      `${this.apiUrl}/AdminUser/DeleteUserAndUserDetail/${userId}`
+      `${this.apiUrl}/AdminUser/DeleteUser${userId}`
     );
   }
 
@@ -51,54 +53,54 @@ export class AdminsideServiceService {
 
   //Mission
   GetMissionThemeList():Observable<MissionTheme[]>{
-    return this.http.get<MissionTheme[]>(`${this.apiUrl}/Mission/GetMissionThemeList`);
+    return this.http.get<MissionTheme[]>(`${this.apiUrl}/AdminMission/GetMissionThemeList`);
   }
   GetMissionSkillList():Observable<MissionSkill[]>{
-    return this.http.get<MissionSkill[]>(`${this.apiUrl}/Mission/GetMissionSkillList`);
+    return this.http.get<MissionSkill[]>(`${this.apiUrl}/AdminMission/GetMissionSkillList`);
   }
   UploadImage(data: any) {
     return this.http.post(`${this.apiUrl}/Common/UploadImage`,data);
   }
   UploadDoc(data: any) {
-    return this.http.post(`${this.apiUrl}/Mission/UploadImage`,data);
+    return this.http.post(`${this.apiUrl}/AdminMission/UploadImage`,data);
   }
   MissionList(): Observable<Mission[]> {
-    return this.http.get<Mission[]>(`${this.apiUrl}/Mission/MissionList`);
+    return this.http.get<Mission[]>(`${this.apiUrl}/AdminMission/MissionList`);
   }
   MissionDetailById(id: number): Observable<Mission[]> {
     return this.http.get<Mission[]>(
-      `${this.apiUrl}/Mission/MissionDetailById/${id}`
+      `${this.apiUrl}/AdminMission/MissionDetailById/${id}`
     );
   }
   CountryList(): Observable<Country[]> {
-    return this.http.get<Country[]>(`${this.apiUrl}/Common/CountryList`);
+    return this.http.get<Country[]>(`${this.apiUrl}/Country`);
   }
   CityList(countryId: any): Observable<City[]> {
     return this.http.get<City[]>(`${this.apiUrl}/Common/CityList/${countryId}`);
   }
   AddMission(data: Mission) {
-    return this.http.post(`${this.apiUrl}/Mission/AddMission`, data);
+    return this.http.post(`${this.apiUrl}/AdminMission/AddMission`, data);
   }
   UpdateMission(data: Mission) {
-    return this.http.post(`${this.apiUrl}/Mission/UpdateMission`, data);
+    return this.http.post(`${this.apiUrl}/AdminMission/UpdateMission`, data);
   }
   DeleteMission(data: any) {
-    return this.http.delete(`${this.apiUrl}/Mission/DeleteMission/${data}`);
+    return this.http.delete(`${this.apiUrl}/AdminMission/DeleteMission/${data}`);
   }
 
   //Mission Application
   MissionApplicationList(): Observable<MissionApplication[]> {
     return this.http.get<MissionApplication[]>(
-      `${this.apiUrl}/Mission/MissionApplicationList`
+      `${this.apiUrl}/AdminMission/MissionApplicationList`
     );
   }
 
   MissionApplicationDelete(data: MissionApplication){
-    return this.http.post(`${this.apiUrl}/Mission/MissionApplicationDelete`, data);
+    return this.http.post(`${this.apiUrl}/AdminMission/MissionApplicationDelete`, data);
   }
 
   MissionApplicationApprove(data: MissionApplication){
-    return this.http.post(`${this.apiUrl}/Mission/MissionApplicationApprove`, data);
+    return this.http.post(`${this.apiUrl}/AdminMission/MissionApplicationApprove`, data);
   }
 
   //Mission Theme

@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.loginUser();
   }
+  // original
   loginUser()
   {
     this.loginForm = this.fb.group({
@@ -26,11 +27,14 @@ export class LoginComponent implements OnInit {
       password:[null,Validators.compose([Validators.required])]
     });
   }
+  
   get emailAddress(){
     return this.loginForm.get('emailAddress') as FormControl;
+    // console.log(this.loginForm.get('emailAddress'))
   }
   get password(){
     return this.loginForm.get('password') as FormControl;
+    // console.log(this.loginForm.get('password'))
   }
   OnSubmit(){
       this.formValid = true;
@@ -50,6 +54,7 @@ export class LoginComponent implements OnInit {
               this.service.setCurrentUser(tokenpayload);
 
               this.toast.success({detail:"SUCCESS",summary:res.data.message,duration:3000});
+              // console.log(tokenpayload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]);
               if(tokenpayload.userType == 'admin')
               {
                 this.router.navigate(['admin/dashboard']);
@@ -57,6 +62,7 @@ export class LoginComponent implements OnInit {
               else
               {
                 this.router.navigate(['/home']);
+                // this.router.navigate(['admin/dashboard']);
               }
 
             }

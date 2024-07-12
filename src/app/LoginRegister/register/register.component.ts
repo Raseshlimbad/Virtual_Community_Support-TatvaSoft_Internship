@@ -74,7 +74,7 @@ export class RegisterComponent implements OnInit {
           }
           else
           {
-            //this.toastr.error(data.message);
+            // this.toastr.error(data.message);
             this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
           }
         })

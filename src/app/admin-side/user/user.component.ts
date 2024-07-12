@@ -29,6 +29,7 @@ export class UserComponent implements OnInit {
     this.service.UserList().subscribe((data:any)=>{
       if(data.result == 1) {
         this.userList = data.data;
+        console.log(data.data)
       } else {
         this.toast.error({detail:"ERROR",summary:data.message,duration:3000});
       }
